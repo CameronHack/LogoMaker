@@ -1,9 +1,19 @@
 const fs = require('fs')
-// const inquirer = require('inquirer');
 let SVG = require('./lib/svg')
+// import inquirer from 'inquirer';
 
 // inquirer
 //     .prompt([
+//         {
+//             type: 'input',
+//             name: 'title',
+//             message: "Enter logo text max 3 characters",
+//         },
+//         {
+//             type: 'input',
+//             name: 'textColor',
+//             message: "What color do you want your text ex. 'red' 'blue' green'",
+//         },
 //         {
 //             type: 'list',
 //             name: 'logoShape',
@@ -15,22 +25,12 @@ let SVG = require('./lib/svg')
 //         },
 //         {
 //             type: 'input',
-//             name: 'title',
-//             message: "Enter logo text",
-//         },
-//         {
-//             type: 'input',
 //             name: 'shapeColor',
-//             message: "What color do you want your shape background",
-//         },
-//         {
-//             type: 'input',
-//             name: 'textColor',
-//             message: "What color do you want your text",
+//             message: "What color do you want your shape background ex. 'red' 'blue' green'",
 //         },
 //     ])
 //     .then((answers) => {
-//         const { logoShape, title, shapeColor, textColor } = answers;
+//         const {title, textColor, logoShape, shapeColor} = answers;
 //     })
 //     .catch((err) => {
 //         if (err) {
@@ -40,10 +40,19 @@ let SVG = require('./lib/svg')
 
 
 
-let newShape = new SVG()
+// let newLogo = new SVG(title, textColor, logoShape, shapeColor)
+let newLogo = new SVG('CAM', 'white', 'square', 'red')
 
-fs.writeFile(`./output/Logo.svg`, newShape.render(), (err) => {
-    if(err) {
+// allows the user to make multiple logos that store in the output folder
+fs.readdir('./output', (err, outputFolder) => {
+    if (err) {
         console.log(err)
+    } else {
+        let logoFilePath = `./output/Logo${outputFolder.length += 1}.svg`
+        fs.writeFile(logoFilePath, newLogo.render(), (err) => {
+            if(err) {
+                console.log(err)
+            }
+        })
     }
-})
+});
