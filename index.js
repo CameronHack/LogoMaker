@@ -8,7 +8,7 @@ inquirer
         {
             type: 'input',
             name: 'title',
-            message: "Enter logo text max 3 characters",
+            message: "Enter logo text (max 3 characters)",
         },
         {
             type: 'input',
@@ -32,6 +32,7 @@ inquirer
     ])
     .then((data) => {
 
+        // creates logo based off user input
         let newLogo = new SVG(data.title, data.textColor, data.logoShape, data.shapeColor)
 
         // allows the user to make multiple logos that store in the output folder
